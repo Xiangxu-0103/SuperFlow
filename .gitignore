@@ -1,0 +1,11 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+
+# Pytorch
+*.pt
+*.pkl
+
+output/
+logs/
+
+*.DS_Store
