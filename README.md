@@ -44,7 +44,7 @@
 
 SuperFlow is introduced to harness consecutive LiDAR-camera pairs for establishing spatiotemporal pretraining objectives. It stands out by integrating two key designs: 1) a dense-to-sparse consistency regularization, which promotes insensitivity to point cloud density variations during feature learning, and 2) a flow-based contrastive learning module, carefully crafted to extract meaningful temporal cues from readily available sensor calibrations.
 
-<img src="docs/figs/superflow.png" align="center" width="91%">
+<img src="docs/figs/superflow.png" align="center" width="100%">
 
 ## Updates
 
