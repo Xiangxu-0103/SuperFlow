@@ -7,5 +7,7 @@ __pycache__/
 
 output/
 logs/
+work_dirs/
+dinov2_weights
 
 *.DS_Store
