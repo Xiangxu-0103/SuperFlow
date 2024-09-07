@@ -76,6 +76,38 @@ To learn more usage about this codebase, kindly refer to [GET_STARTED.md](./docs
 
 ### Comparisons of state-of-the-art pretraining methods
 
+<table>
+    <tr>
+        <th rowspan="2">Method</th>
+        <th rowspan="2">Distill</th>
+        <th colspan="6">nuScenes</th>
+        <th colspan="1">KITTI</th>
+        <th colspan="1">Waymo</th>
+    </tr>
+    <tr>
+        <td>LP</td>
+        <td>1%</td>
+        <td>5%</td>
+        <td>10%</td>
+        <td>25%</td>
+        <td>Full</td>
+        <td>1%</td>
+        <td>1%</td>
+    </tr>
+    <tr>
+        <td>Random</td>
+        <td>-</td>
+        <td>8.10</td>
+        <td>30.30</td>
+        <td>47.84</td>
+        <td>56.15</td>
+        <td>65.48</td>
+        <td>74.66</td>
+        <td>39.50</td>
+        <td>39.41</td>
+    </tr>
+</table>
+
 ### Domain generalization study
 
 ### Out-of-distribution 3D robustness study
