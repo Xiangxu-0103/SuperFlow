@@ -1,16 +1,4 @@
-from mmdet3d.datasets.transforms import LoadPointsFromFile
-from mmdet3d.visualization import Det3DLocalVisualizer
-from mmengine.dataset import DefaultSampler
-from mmengine.visualization import LocalVisBackend
-
-from superflow.datasets import NuScenesSegDataset
-from superflow.datasets.transforms import (FlipHorizontal, FlipPoints,
-                                           GlobalRotScaleTransPoints,
-                                           LoadMultiFrameDataset,
-                                           LoadMultiModalityData,
-                                           LoadMultiSweepsPoints, ResizedCrop,
-                                           SuperflowInputs)
-
+dataset_type = 'NuScenesSegDataset'
 data_root = './data/nuscenes'
 class_names = [
     'barrier', 'bicycle', 'bus', 'car', 'construction_vehicle', 'motorcycle',
@@ -67,56 +55,56 @@ data_prefix = dict(
     pts_semantic_mask='lidarseg/v1.0-trainval')
 
 transforms = [
-    dict(type=LoadPointsFromFile, coord_type='LIDAR', load_dim=5, use_dim=4),
+    dict(type='LoadPointsFromFile', coord_type='LIDAR', load_dim=5, use_dim=4),
     dict(
-        type=LoadMultiModalityData,
-        superpixel_root='./data/openseed_inst17/superpixels',
+        type='LoadMultiModalityData',
+        superpixel_root='./data/openseed_inst17',
         num_cameras=3),
     dict(
-        type=FlipPoints,
+        type='FlipPoints',
         flip_ratio_bev_horizontal=0.5,
         flip_ratio_bev_vertical=0.5),
     dict(
-        type=GlobalRotScaleTransPoints,
+        type='GlobalRotScaleTransPoints',
         rot_range=[0, 3.14159265359],
         scale_ratio_range=[0.95, 1.05]),
     dict(
-        type=ResizedCrop,
+        type='ResizedCrop',
         image_crop_size=[224, 448],
         image_crop_ratio=[1.5555555555555556, 1.8888888888888888],
         crop_center=True),
-    dict(type=FlipHorizontal)
+    dict(type='FlipHorizontal')
 ]
 
 train_pipeline = [
-    dict(type=LoadPointsFromFile, coord_type='LIDAR', load_dim=5, use_dim=4),
+    dict(type='LoadPointsFromFile', coord_type='LIDAR', load_dim=5, use_dim=4),
     dict(
-        type=LoadMultiSweepsPoints,
+        type='LoadMultiSweepsPoints',
         sweep_path='./data/nuscenes/sweeps/LIDAR_TOP',
         sweeps_num=2,
         load_dim=5,
         use_dim=4),
     dict(
-        type=LoadMultiModalityData,
-        superpixel_root='./data/openseed_inst17/superpixels',
+        type='LoadMultiModalityData',
+        superpixel_root='./data/openseed_inst17',
         num_cameras=3),
     dict(
-        type=FlipPoints,
+        type='FlipPoints',
         flip_ratio_bev_horizontal=0.5,
         flip_ratio_bev_vertical=0.5),
     dict(
-        type=GlobalRotScaleTransPoints,
+        type='GlobalRotScaleTransPoints',
         rot_range=[0, 3.14159265359],
         scale_ratio_range=[0.95, 1.05]),
     dict(
-        type=ResizedCrop,
+        type='ResizedCrop',
         image_crop_size=[224, 448],
         image_crop_ratio=[1.5555555555555556, 1.8888888888888888],
         crop_center=True),
-    dict(type=FlipHorizontal),
-    dict(type=LoadMultiFrameDataset, frame=1, transforms=transforms),
+    dict(type='FlipHorizontal'),
+    dict(type='LoadMultiFrameDataset', frame=1, transforms=transforms),
     dict(
-        type=SuperflowInputs,
+        type='SuperflowInputs',
         keys=[
             'points', 'imgs', 'pairing_points', 'pairing_images',
             'superpixels', 'prev_points', 'prev_imgs', 'prev_pairing_points',
@@ -129,11 +117,11 @@ train_pipeline = [
 
 train_dataloader = dict(
     batch_size=4,
-    num_workers=8,
+    num_workers=4,
     persistent_workers=True,
-    sampler=dict(type=DefaultSampler, shuffle=True),
+    sampler=dict(type='DefaultSampler', shuffle=True),
     dataset=dict(
-        type=NuScenesSegDataset,
+        type='NuScenesSegDataset',
         data_root=data_root,
         ann_file='superflow_nus_info.pkl',
         data_prefix=data_prefix,
@@ -142,6 +130,6 @@ train_dataloader = dict(
         modality=input_modality,
         ignore_index=16))
 
-vis_backends = [dict(type=LocalVisBackend)]
+vis_backends = [dict(type='LocalVisBackend')]
 visualizer = dict(
-    type=Det3DLocalVisualizer, vis_backends=vis_backends, name='visualizer')
+    type='Det3DLocalVisualizer', vis_backends=vis_backends, name='visualizer')

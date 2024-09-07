@@ -110,8 +110,7 @@ class LoadMultiModalityData(BaseTransform):
             ]
             camera_list = np.random.choice(
                 camera_list, size=self.num_cameras, replace=False)
-            if self.shuffle:
-                np.random.shuffle(camera_list)
+            np.random.shuffle(camera_list)
             results['camera_list'] = camera_list
 
         for i, cam in enumerate(camera_list):
