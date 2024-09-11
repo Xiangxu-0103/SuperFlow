@@ -9,7 +9,7 @@ mmcv_maximum_version = '3.0.0'
 Meanwhile, you should modify `Line 123-124` in `mmdet3d/datasets/seg3d_dataset.py` as follows:
 
 ```python
-if scene_idxs is None:
+if scene_idxs is not None:
     self.scene_idxs = self.get_scene_idxs(scene_idxs)
     self.data_list = [self.data_list[i] for i in self.scene_idxs]
 ```
