@@ -103,6 +103,7 @@ class SuperFlow(BaseModel):
 
         for i, data_sample in enumerate(data_samples):
             superpixel = data_sample.gt_pts_seg.superpixels
+            superpixel = superpixel + i * self.superpixel_size
             pairing_image = data_sample.gt_pts_seg.pairing_images
             pairing_image[:, 0] += i * superpixel.shape[0]
             pairing_point = data_sample.gt_pts_seg.pairing_points
@@ -111,6 +112,7 @@ class SuperFlow(BaseModel):
             offset += feat_dict['voxel_inds'][i].shape[0]
 
             prev_superpixel = data_sample.gt_pts_seg.prev_superpixels
+            prev_superpixel = prev_superpixel + i * self.superpixel_size
             prev_pairing_image = data_sample.gt_pts_seg.prev_pairing_images
             prev_pairing_image[:, 0] += i * prev_superpixel.shape[0]
             prev_pairing_point = data_sample.gt_pts_seg.prev_pairing_points
@@ -120,6 +122,7 @@ class SuperFlow(BaseModel):
             prev_offset += prev_feat_dict['voxel_inds'][i].shape[0]
 
             next_superpixel = data_sample.gt_pts_seg.next_superpixels
+            next_superpixel = next_superpixel + i * self.superpixel_size
             next_pairing_image = data_sample.gt_pts_seg.next_pairing_images
             next_pairing_image[:, 0] += i * next_superpixel.shape[0]
             next_pairing_point = data_sample.gt_pts_seg.next_pairing_points
@@ -166,15 +169,6 @@ class SuperFlow(BaseModel):
         sweep_pairing_images = torch.cat(sweep_pairing_images)
         sweep_pairing_points = torch.cat(sweep_pairing_points)
 
-        interleave = torch.arange(
-            0,
-            features_2d.shape[0] * self.superpixel_size,
-            self.superpixel_size,
-            device=features_2d.device)
-        superpixels = interleave[:, None, None] + superpixels
-        prev_superpixels = interleave[:, None, None] + prev_superpixels
-        next_superpixels = interleave[:, None, None] + next_superpixels
-
         m = tuple(pairing_images.cpu().T.long())
         superpixels_I = superpixels.flatten()
         idx_P = torch.arange(
@@ -206,44 +200,42 @@ class SuperFlow(BaseModel):
             one_hot_P = torch.sparse_coo_tensor(
                 torch.stack((superpixels[m], idx_P), dim=0),
                 torch.ones(pairing_points.shape[0], device=features_2d.device),
-                (superpixels.shape[0] * self.superpixel_size,
+                (len(data_samples) * self.superpixel_size,
                  pairing_points.shape[0]))
             one_hot_I = torch.sparse_coo_tensor(
                 torch.stack((superpixels_I, idx_I), dim=0),
                 torch.ones(total_pixels, device=features_2d.device),
-                (superpixels.shape[0] * self.superpixel_size, total_pixels))
+                (len(data_samples) * self.superpixel_size, total_pixels))
 
             prev_one_hot_P = torch.sparse_coo_tensor(
                 torch.stack((prev_superpixels[prev_m], prev_idx_P), dim=0),
                 torch.ones(
                     prev_pairing_points.shape[0],
                     device=prev_features_2d.device),
-                (prev_superpixels.shape[0] * self.superpixel_size,
+                (len(data_samples) * self.superpixel_size,
                  prev_pairing_points.shape[0]))
             prev_one_hot_I = torch.sparse_coo_tensor(
                 torch.stack((prev_superpixels_I, prev_idx_I), dim=0),
                 torch.ones(prev_total_pixels, device=prev_features_2d.device),
-                (prev_superpixels.shape[0] * self.superpixel_size,
-                 prev_total_pixels))
+                (len(data_samples) * self.superpixel_size, prev_total_pixels))
 
             next_one_hot_P = torch.sparse_coo_tensor(
                 torch.stack((next_superpixels[next_m], next_idx_P), dim=0),
                 torch.ones(
                     next_pairing_points.shape[0],
                     device=next_features_2d.device),
-                (next_superpixels.shape[0] * self.superpixel_size,
+                (len(data_samples) * self.superpixel_size,
                  next_pairing_points.shape[0]))
             next_one_hot_I = torch.sparse_coo_tensor(
                 torch.stack((next_superpixels_I, next_idx_I), dim=0),
                 torch.ones(next_total_pixels, device=next_features_2d.device),
-                (next_superpixels.shape[0] * self.superpixel_size,
-                 next_total_pixels))
+                (len(data_samples) * self.superpixel_size, next_total_pixels))
 
             sweep_one_hot_P = torch.sparse_coo_tensor(
                 torch.stack((superpixels[sweep_m], sweep_idx_P), dim=0),
                 torch.ones(
                     sweep_pairing_points.shape[0], device=features_2d.device),
-                (superpixels.shape[0] * self.superpixel_size,
+                (len(data_samples) * self.superpixel_size,
                  sweep_pairing_points.shape[0]))
 
         k = one_hot_P @ features_3d[pairing_points]
