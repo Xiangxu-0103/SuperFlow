@@ -584,6 +584,7 @@ If you find this work helpful for your research, please kindly consider citing o
     title = {4D Contrastive Superflows are Dense 3D Representation Learners},
     author = {Xu, Xiang and Kong, Lingdong and Shuai, Hui and Zhang, Wenwei and Pan, Liang and Chen, Kai and Liu, Ziwei and Liu, Qingshan},
     booktitle = {European Conference on Computer Vision},
+    pages = {58--80},
     year = {2024}
 }
 ```
