@@ -317,7 +317,7 @@ To learn more usage about this codebase, kindly refer to [GET_STARTED.md](./docs
     </tr>
     <tr>
         <td>SLiDR</td>
-        <td>9.60</td>
+        <td>39.60</td>
         <td>50.45</td>
         <td>49.75</td>
         <td>54.57</td>
