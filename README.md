@@ -48,6 +48,7 @@ SuperFlow is introduced to harness consecutive LiDAR-camera pairs for establishi
 
 ## Updates
 
+- \[2025.03\] - Our improved framework, [SuperFlow++](https://arxiv.org/abs/2503.19912) :rocket:, is avaliable on arXiv.
 - \[2024.07\] - Our paper is accepted by [ECCV](https://eccv2024.ecva.net/).
 
 ## Outline
