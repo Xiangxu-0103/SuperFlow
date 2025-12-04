@@ -48,6 +48,7 @@ SuperFlow is introduced to harness consecutive LiDAR-camera pairs for establishi
 
 ## Updates
 
+- \[2025.12\] - [SuperFlow++](https://arxiv.org/abs/2503.19912) is accepted by TPAMI.
 - \[2025.03\] - Our improved framework, [SuperFlow++](https://arxiv.org/abs/2503.19912) :rocket:, is avaliable on arXiv.
 - \[2024.07\] - Our paper is accepted by [ECCV](https://eccv2024.ecva.net/).
 
@@ -587,6 +588,13 @@ If you find this work helpful for your research, please kindly consider citing o
     booktitle = {European Conference on Computer Vision},
     pages = {58--80},
     year = {2024}
+}
+
+@article{xu2025superflow++,
+  title={Enhanced Spatiotemporal Consistency for Image-to-LiDAR Data Pretraining},
+  author={Xu, Xiang and Kong, Lingdong and Shuai, Hui and Zhang, Wenwei and Pan, Liang and Chen, Kai and Liu, Ziwei and Liu, Qingshan},
+  journal={IEEE Transactions on Pattern Analysis and Machine Intelligence},
+  year={2025}
 }
 ```
 
