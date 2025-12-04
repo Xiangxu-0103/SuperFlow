@@ -591,10 +591,10 @@ If you find this work helpful for your research, please kindly consider citing o
 }
 
 @article{xu2025superflow++,
-  title={Enhanced Spatiotemporal Consistency for Image-to-LiDAR Data Pretraining},
-  author={Xu, Xiang and Kong, Lingdong and Shuai, Hui and Zhang, Wenwei and Pan, Liang and Chen, Kai and Liu, Ziwei and Liu, Qingshan},
-  journal={IEEE Transactions on Pattern Analysis and Machine Intelligence},
-  year={2025}
+    title = {Enhanced Spatiotemporal Consistency for Image-to-LiDAR Data Pretraining},
+    author = {Xu, Xiang and Kong, Lingdong and Shuai, Hui and Zhang, Wenwei and Pan, Liang and Chen, Kai and Liu, Ziwei and Liu, Qingshan},
+    journal = {IEEE Transactions on Pattern Analysis and Machine Intelligence},
+    year = {2025}
 }
 ```
 
